@@ -1,28 +1,45 @@
 import pandas as pd
+import random
 import os
 
-# Path to the Excel file
-file_path = os.path.join(os.path.expanduser('~'), 'Documents', 'travel_database.xlsx')
+# Define data options
+destination_types = ['Continental', 'Domestic', 'Mountain', 'International', 'Beach', 'City', 'Adventure']
+destinations = [
+    'Paris', 'New York', 'Tokyo', 'Sydney', 'Cape Town', 'Rio de Janeiro', 'Zurich', 
+    'Hawaii', 'Maldives', 'Singapore', 'Iceland', 'Alaska', 'Banff', 'Bali', 'Dubai'
+]
 
+# Generate synthetic data
+def generate_data(num_records):
+    data = []
+    for _ in range(num_records):
+        destination_type = random.choice(destination_types)
+        destination = random.choice(destinations)
+        cost = random.randint(500, 10000)  # Costs in USD
+        no_of_days = random.randint(3, 10)
+        
+        data.append({
+            'Destination Type': destination_type,
+            'Destination': destination,
+            'Cost (USD)': cost,
+            'Number of Days': no_of_days
+        })
+    return data
+
+# Create DataFrame
+num_records = 5000
+data = generate_data(num_records)
+df = pd.DataFrame(data)
+
+# Define output file path
 try:
-    # Load the Excel file
-    df = pd.read_excel(file_path)
-    print("Excel file loaded successfully.")
-
-    # Check and remove the 'Itinerary' column
-    if 'Itinerary' in df.columns:
-        df = df.drop(columns=['Itinerary'])
-        print("'Itinerary' column removed successfully.")
-    else:
-        print("'Itinerary' column does not exist in the file.")
-
-    # Save the updated DataFrame back to the same file
-    df.to_excel(file_path, index=False)
-    print(f"Updated file saved successfully at: {file_path}")
-
+    output_file = os.path.join(os.path.expanduser('~'), 'Documents', 'travel_database.xlsx')
+    print(f"Saving file to: {output_file}")
+    df.to_excel(output_file, index=False)
+    print(f"Data saved successfully to {output_file}")
 except FileNotFoundError:
-    print(f"File not found: {file_path}. Ensure the file exists at this path.")
+    print("The specified directory does not exist.")
+except PermissionError:
+    print("Permission denied: Unable to write to the specified location.")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
-
-
