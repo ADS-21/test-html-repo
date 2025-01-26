@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Travel Planner</title>
+    <title>Travel Planner</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
     <style>
-        /* Global Styling */
+        /* General Styling */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f7fa;
+            background-color: #2795ab;
         }
 
-        /* Header Section */
+        /* Landing Page */
         .header {
-            background-image: url('https://images.unsplash.com/photo-1506748686219-1cc01d0798fe'); /* Replace with your image */
+            background-image: url('img/img2.jpg');
             background-size: cover;
             height: 100vh;
             display: flex;
+            
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -27,17 +28,8 @@
             text-align: center;
         }
 
-        .header h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-        .header p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-        }
-
         .btn-start {
-            background-color: #007bff;
+            background-color: #00aaff;
             color: white;
             padding: 12px 20px;
             border-radius: 5px;
@@ -49,9 +41,9 @@
             background-color: #0056b3;
         }
 
-        /* Login/Signup Container */
+        /* Auth Forms */
         .auth-container {
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(224, 149, 149, 0.8);
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -62,91 +54,41 @@
             display: none;
         }
 
-        /* Forms */
-        .auth-form {
-            margin-top: 20px;
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            background-color: #3d82c7;
+            color: rgb(22, 7, 7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            display: none;
         }
 
-        .form-group label {
-            font-size: 1rem;
+        .sidebar a {
+            display: block;
+            padding: 10px 20px;
+            color: rgb(183, 228, 234);
+            text-decoration: none;
         }
 
-.form-group input {
-    padding: 10px;
-    font-size: 1rem;
-    width: 100%;
-    border-radius: 5px;
-}
-
-.btn-auth {
-    background-color: #28a745;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
-    border: none;
-    width: 100%;
-    cursor: pointer;
-    margin-top: 15px;
-}
-
-.btn-auth:hover {
-    background-color: #218838;
-}
-
-/* Toggle Links */
-.toggle-links {
-    font-size: 0.9rem;
-    margin-top: 10px;
-}
-
-.toggle-links a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-.toggle-links a:hover {
-    text-decoration: underline;
-}
-/* Responsive Styles */
-@media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header p {
-                font-size: 1rem;
-            }
-
-            .auth-container {
-                width: 80%;
-                top: 15%;
-            }
+        .sidebar a:hover {
+            background-color: #2d7bd3;
         }
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
-
-            .auth-container {
-                width: 90%;
-                top: 10%;
-            }
-        }
-
-        /* Footer Section */
-        .footer {
-            background-color: #333;
-            color: white;
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
             padding: 20px;
-            text-align: center;
+            display: none;
         }
     </style>
 </head>
 <body>
-
-    <!-- Header Section with Welcome Message -->
-    <div class="header">
+    <!-- Header -->
+    <div class="header" id="landing-page">
         <h1>Welcome to Your Travel Planner</h1>
         <p>Start planning your dream trip with us today!</p>
         <button class="btn-start" onclick="showAuthForm()">Get Started</button>
@@ -154,56 +96,153 @@
 
     <!-- Login/Signup Form -->
     <div id="auth-form" class="auth-container">
-        <!-- Login Form -->
         <div id="login-form">
             <h2>Login</h2>
-            <form>
+            <form onsubmit="loginUser(event)">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    <label>Email</label>
+                    <input type="email" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    <label>Password</label>
+                    <input type="password" class="form-control" required>
                 </div>
                 <button type="submit" class="btn-auth">Login</button>
-                <p class="toggle-links">Don't have an account? <a href="#" onclick="toggleForm('signup')">Sign Up</a></p>
+                <p>Don't have an account? <a href="#" onclick="toggleForm('signup')">Sign Up</a></p>
             </form>
         </div>
 
-        <!-- Signup Form -->
         <div id="signup-form" style="display: none;">
             <h2>Sign Up</h2>
             <form>
                 <div class="form-group">
-                    <label for="new-email">Email</label>
-                    <input type="email" id="new-email" class="form-control" 
-                    placeholder="Enter your email" required>
+                    <label>Email</label>
+                    <input type="email" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="new-password">Password</label>
-                    <input type="password" id="new-password" class="form-control" placeholder="Enter your password" required>
+                    <label>Password</label>
+                    <input type="password" class="form-control" required>
                 </div>
                 <button type="submit" class="btn-auth">Sign Up</button>
-                <p class="toggle-links">Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
+                <p>Already have an account? <a href="#" onclick="toggleForm('login')">Login</a></p>
             </form>
         </div>
     </div>
 
-    <!-- Footer Section -->
-    <div class="footer">
-        <p>&copy; 2025 Travel Planner. All Rights Reserved.</p>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h3>Travel Planner</h3>
+        <a href="#">Dashboard</a>
+        <a href="#">Upcoming Trips</a>
+        <a href="#" onclick="showPlanTripForm()">New Trip</a>
+        <a href="#">Saved Locations</a>
+        <a href="#">Notifications</a>
+        <a href="#" onclick="logout()">Logout</a>
     </div>
 
-    <!-- JavaScript for handling forms -->
+    <!-- Dashboard -->
+     <!-- Dashboard Content -->
+     <div class="main-content" id="dashboard">
+        <h1>Welcome, User</h1>
+        <p>Here is your travel dashboard.</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card p-3 mb-3">
+                    <h5>Upcoming Trips</h5>
+                    <p>No trips planned yet. Start planning now!</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 mb-3">
+                    <h5>Saved Locations</h5>
+                    <p>You haven't saved any locations yet.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 mb-3">
+                    <h5>Notifications</h5>
+                    <p>No new notifications.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Plan Trip Form -->
+    <div class="main-content" id="plan-trip-form" style="display: none;">
+        <h1>Plan Your Trip</h1>
+        <form onsubmit="submitTrip(event)">
+            <div class="form-group">
+                <label for="Destination">Select Destination</label>
+                <select id="Destination" class="form-control" required>
+                    <option value="Continental">Continental</option>
+                    <option value="Domestic">Domestic</option>
+                    <option value="International">International</option>
+                    <option value="Local">Local</option>
+                    <option value="Mountain">Mountain</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="budget">Enter Budget</label>
+                <input type="text" id="budget" class="form-control" placeholder="Enter budget" required>
+            </div>
+            <div class="form-group">
+                <label for="days">Number of Days</label>
+                <input type="number" id="days" class="form-control" min="1" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+
+
+    <!-- Recommendations -->
+    <div id="recommendations" class="main-content recommendations" style="display: none;">
+        <h1>Destination Recommendations</h1>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Type of Destination</th>
+                    <th>Place</th>
+                    <th>Itineraries</th>
+                </tr>
+            </thead>
+            <tbody id="recommendation-list">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Scripts -->
     <script>
-        // Show the Login/Signup form
+        const destinationRecommendations = {
+            "Continental": [
+                { place: "Caribbean Beaches", itinerary: "Relax by the ocean, enjoy water sports, and explore local cuisine." },
+                { place: "Europe", itinerary: "Tour historical landmarks and experience diverse cultures." }
+            ],
+            "Domestic": [
+                { place: "National Parks (USA)", itinerary: "Hiking, wildlife exploration, and scenic drives." },
+                { place: "New York", itinerary: "Visit Times Square, museums, and enjoy Broadway shows." }
+            ],
+            "International": [
+                { place: "Greece", itinerary: "Explore ancient ruins and beautiful islands." },
+                { place: "Japan", itinerary: "Experience traditional culture, temples, and cherry blossoms." }
+            ],
+            "Local": [
+                { place: "Local Parks", itinerary: "Picnic, biking trails, and nature walks." },
+                { place: "Hidden Gems in Your City", itinerary: "Discover local cafes, museums, and historic landmarks." }
+            ],
+            "Mountain": [
+                { place: "Himalayas", itinerary: "Trekking, spiritual retreats, and breathtaking views." },
+                { place: "Swiss Alps", itinerary: "Skiing, cable car rides, and scenic villages." }
+            ]
+        };
+
         function showAuthForm() {
+            document.getElementById('landing-page').style.display = 'none';
             document.getElementById('auth-form').style.display = 'block';
-            document.querySelector('.header').style.display = 'none';
         }
 
-        // Toggle between Login and Signup Forms
         function toggleForm(form) {
             if (form === 'signup') {
                 document.getElementById('login-form').style.display = 'none';
@@ -213,9 +252,48 @@
                 document.getElementById('login-form').style.display = 'block';
             }
         }
-</script>
 
+        function loginUser(event) {
+            event.preventDefault();
+            document.getElementById('auth-form').style.display = 'none';
+            document.getElementById('sidebar').style.display = 'block';
+            document.getElementById('dashboard').style.display = 'block';
+        }
+
+        function logout() {
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('landing-page').style.display = 'flex';
+        }
+
+        function showPlanTripForm() {
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('plan-trip-form').style.display = 'block';
+        }
+
+        function submitTrip(event) {
+            event.preventDefault();
+            const destinationType = document.getElementById('Destination').value;
+            displayRecommendations(destinationType);
+        }
+
+        function displayRecommendations(destinationType) {
+            const recommendations = destinationRecommendations[destinationType];
+            const recommendationList = document.getElementById('recommendation-list');
+            recommendationList.innerHTML = '';
+
+            recommendations.forEach(rec => {
+                const row = `<tr>
+                    <td>${destinationType}</td>
+                    <td>${rec.place}</td>
+                        <td>${rec.itinerary}</td>
+                    </tr>`;
+                recommendationList.innerHTML += row;
+            });
+
+            document.getElementById('plan-trip-form').style.display = 'none';
+            document.getElementById('recommendations').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
-
-

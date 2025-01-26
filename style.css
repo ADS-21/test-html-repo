@@ -1,0 +1,13 @@
+/* Landing Page */
+.header {
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Ftravel-design&psig=AOvVaw2AuZIUxNAI3A2q3EG-yQ0O&ust=1737918586013000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPDA7LLJkYsDFQAAAAAdAAAAABAE'); /* Replace with your desired image URL */
+    background-size: cover;
+    background-position: center; /* Centers the background image */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(125, 65, 65);
+    text-align: center;
+}
